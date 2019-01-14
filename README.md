@@ -7,7 +7,7 @@ login dialog
 register dialog
 
 ![profile1](./profile1.PNG)
-/<roles>/<username>/about (my profile)
+/students/aaaa/about (my profile)
 
 ![profile2](./profile2.PNG)
-/<roles>/<username>/about (other profile)
+/students/bbbb/about (other profile)
