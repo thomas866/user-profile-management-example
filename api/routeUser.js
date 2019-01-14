@@ -29,8 +29,8 @@ module.exports = (db) => {
   }),
 
   // show
-  router.get('/:username', function (req, res) {
-    db.findOne({username: req.params.username}, function (err, result) {
+  router.get('/:user', function (req, res) {
+    db.findOne({username: req.params.user}, function (err, result) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting data.',
@@ -60,8 +60,8 @@ module.exports = (db) => {
   }),
 
   // update
-  router.put('/:username', function (req, res) {
-    db.findOneAndUpdate({username: req.params.username}, req.body, function (err, result) {
+  router.put('/:user', function (req, res) {
+    db.findOneAndUpdate({username: req.params.user}, req.body, function (err, result) {
       if (err){
         return res.status(500).json({
           message: 'Error when updating data',
@@ -73,8 +73,8 @@ module.exports = (db) => {
   }),
 
   // delete
-  router.delete('/:username', function (req, res) {
-    db.findOneAndDelete({username: req.params.username}, function (err, result) {
+  router.delete('/:user', function (req, res) {
+    db.findOneAndDelete({username: req.params.user}, function (err, result) {
       if (err) {
         return res.status(500).json({
           message: 'Error when deleting the data.',

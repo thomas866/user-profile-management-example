@@ -44,7 +44,7 @@
       <v-spacer></v-spacer>
       <v-text v-show = "$auth.$state.loggedIn" v-text="$auth.$state.loggedIn ? $auth.user.name+'님, 안녕하세요?' : '' "></v-text>
       <v-toolbar-items>
-
+        <!-- <v-btn flat v-show = "$auth.$state.loggedIn" @click="toEditPage">Edit</v-btn> -->
         <v-btn flat v-text="$auth.$state.loggedIn ? 'Sign out' : 'Sign in'" @click="loginout"></v-btn>
         <v-btn flat v-show = "!$auth.$state.loggedIn" @click="showRegisterDialog">Register</v-btn>
       </v-toolbar-items>
@@ -238,6 +238,8 @@
             this.loginPassword = ''
           })
         }
+      },
+      toEditPage(){
       }
     }
   }
