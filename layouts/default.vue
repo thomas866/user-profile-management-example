@@ -66,7 +66,7 @@
                   </v-card-title>
                   <v-layout wrap>
                     <v-flex xs12>
-                      <v-text-field v-model="loginUsername" label="Username" required></v-text-field>
+                      <v-text-field v-model="loginID" label="ID" required></v-text-field>
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field v-model="loginPassword" label="Password" type="password" required></v-text-field>
@@ -101,25 +101,25 @@
                 </v-card-title>
                   <v-layout wrap>
                     <v-flex xs12>
-                      <v-text-field label="Username*" v-model="username" required>
-                      </v-text-field>
+                      <v-text-field label="ID*" v-model="id" required/>
                     </v-flex>
                     <v-flex xs12>
-                      <v-text-field label="Email*" v-model="email" required></v-text-field>
+                      <v-text-field label="name*" v-model="name" required/>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field label="Email*" v-model="email" required/>
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field v-model="password" :append-icon="show_password ? 'visibility_off' : 'visibility'"
                         :rules="[rules.more_than_8]" :type="show_password ? 'text' : 'password'"
                         label="Password*" hint="at least 8 characters" counter
-                        @click:append="show_password = !show_password">
-                      </v-text-field>
+                        @click:append="show_password = !show_password"/>
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field v-model="password2" :append-icon="show_password ? 'visibility_off' : 'visibility'"
                         :rules="[rules.same_password]" :type="show_password ? 'text' : 'password'"
                         label="Password confirmation*" hint="need to be matched" counter
-                        @click:append="show_password = !show_password">
-                      </v-text-field>
+                        @click:append="show_password = !show_password"/>
                     </v-flex>
                     <v-flex xs12>
                       <v-select
@@ -159,7 +159,7 @@
         miniVariant: false,
         title: 'Make SW Visible & Imaginable',
         valid: true,
-        loginUsername: '',
+        loginID: '',
         loginPassword: '',
         username: '',
         password: '',
@@ -199,22 +199,19 @@
       async register(){
         if (this.$refs.registerForm.validate()) {
           await this.$axios.post('api/auth/register', {
-            username: this.username, password: this.password, role: this.role, email: this.email
+            id: this.id,
+            password: this.password,
+            username: this.name,
+            role: this.role,
+            email: this.email
           })
           .then( res => {
             this.registerDialog = false;
             this.loginDialog = true;
-            this.username = ''
-            this.password = ''
-            this.password2 = ''
-            this.email = ''
-            this.role = ''
+            this.$refs.registerForm.reset()
           })
           .catch(err => {
             this.$refs.registerForm.reset()
-            this.username = ''
-            this.password = ''
-            this.email = ''
             console.log(err)
           })
         }
@@ -222,20 +219,16 @@
       async login(){
         if (this.$refs.loginForm.validate()) {
           await this.$auth.loginWith('local', {
-            data: { username: this.loginUsername, password: this.loginPassword }
+            data: { id: this.loginID, password: this.loginPassword }
           })
           .then( res => {
             this.loginDialog = false;
-            this.loginUsername = ''
-            this.loginPassword = ''
+            this.$refs.loginForm.reset()
             this.$router.push({ name: 'me' })
           })
           .catch(e => {
             console.log(e)
-
             this.$refs.loginForm.reset()
-            this.loginUsername = ''
-            this.loginPassword = ''
           })
         }
       },

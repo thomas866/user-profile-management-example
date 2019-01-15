@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/bosornd', { promiseLibrary: require('bluebird'), useNewUrlParser: true })
+mongoose.connect(require('./config/mongoose'), { promiseLibrary: require('bluebird'), useNewUrlParser: true })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
@@ -20,7 +20,7 @@ const jwt = require('express-jwt')
 const site_secret = require('./config/secret')
 
 app.use('/auth', require('./auth'));
-app.use('/user', require('./routeUser')(require('../models/User')))
+app.use('/users', jwt({secret: site_secret}), require('./utils/routeDB')(require('../models/user'), 'id'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

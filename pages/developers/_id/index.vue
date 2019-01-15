@@ -1,7 +1,7 @@
 <template>
 <pre>
   GET
-  개발자({{$route.params.user}}) 마이 페이지(본인이 아니면 about으로 라우팅 된다) (개발자 전용)
+  개발자({{$route.params.id}}) 마이 페이지(본인이 아니면 about으로 라우팅 된다) (개발자 전용)
 </pre>
 </template>
 

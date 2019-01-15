@@ -30,24 +30,18 @@ var userSchema = new mongoose.Schema({
   },
   belongTo: {
         type: String,
-        required: true
-
   },
   parentID: {
-        type: String,
-        default: ''
+        type: String
   },
   childrenID: {
-        type: Array,
-        default: ''
+        type: Array
   },
   address: {
-        type: String,
-        default: ''
+        type: String
   },
   phone: {
-        type: String,
-        default: ''
+        type: String
   }
 });
 

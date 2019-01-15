@@ -7,8 +7,16 @@
   >
     <v-flex tag="h1">User Profile</v-flex>
     <v-text-field
-      label="Username"
-      v-model="user.username"
+      label="id"
+      v-model="profile.id"
+      :rules="[rules.required]"
+      readonly
+      required
+    ></v-text-field>
+
+    <v-text-field
+      label="name"
+      v-model="profile.name"
       :rules="[rules.required]"
       readonly
       required
@@ -16,7 +24,7 @@
 
     <v-text-field
       label="Email"
-      v-model="user.email"
+      v-model="profile.email"
       :rules="[rules.required]"
       :readonly="!editable"
       required
@@ -24,7 +32,7 @@
 
     <v-select
       label="Role"
-      v-model="user.role"
+      v-model="profile.role"
       :items="['student', 'teacher', 'institute', 'developer', 'operator']"
       :rules="[rules.required]"
       :readonly="!editable"
@@ -73,11 +81,12 @@ export default {
   middleware: ['auth'],
   data() {
     return {
-      editable: this.$auth.user.name === this.$route.params.user,
+      editable: this.$auth.user.id === this.$route.params.id,
       valid: true,
-      username: '',
-      email: '',
-      role: '',
+      // id: '',
+      // name: '',
+      // email: '',
+      // role: '',
       rules: {
         required: value => !!value || 'Required',
       },
@@ -85,21 +94,21 @@ export default {
     }
   },
   async asyncData({route, $axios, redirect}){
-    const user = await $axios.$get('/api/user/' + route.params.user)
+    const profile = await $axios.$get('/api/users/' + route.params.id)
     .catch( err => {
       console.log(err)
       redirect('/')         // invalid user
     })
 
     return {
-      user,
+      profile,
       successDialog: false
     }
   },
   methods: {
     async save() {
       if (this.$refs.form.validate()) {
-        await this.$axios.put('/api/user/' + this.$route.params.user, this.user)
+        await this.$axios.put('/api/users/' + this.$route.params.id, this.profile)
         .then( res => {
           this.successDialog = true;
         })
