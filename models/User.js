@@ -1,29 +1,57 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-var UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true
+var userSchema = new mongoose.Schema({
+  id: {
+        type: String,
+        unique: true,
+        index : true,
+        required: true
   },
   password: {
-    type: String,
-    required: true
+        type: String,
+        required: true,
+        trim: true
   },
   role: {
-    type: String,
-    required: true
+        type: String,
+        required: true
+  },
+  name: {
+        type: String,
+        index: true,
+        required: true
   },
   email: {
         type: String,
+        unique: true,
         lowercase: true,
         required: true,
-        unique: true,
+  },
+  belongTo: {
+        type: String,
+        required: true
+
+  },
+  parentID: {
+        type: String,
+        default: ''
+  },
+  childrenID: {
+        type: Array,
+        default: ''
+  },
+  address: {
+        type: String,
+        default: ''
+  },
+  phone: {
+        type: String,
+        default: ''
   }
 });
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
@@ -43,8 +71,8 @@ UserSchema.pre('save', function (next) {
     }
 });
 
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
+userSchema.methods.comparePassword = function (password, cb) {
+    bcrypt.compare(password, this.password, function (err, isMatch) {
         if (err) {
             return cb(err);
         }
@@ -52,4 +80,4 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('user', userSchema);
