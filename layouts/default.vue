@@ -21,20 +21,20 @@
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-      <v-divider></v-divider>
-      <v-list>
-        <v-list-tile @click="loginout">
-          <v-list-tile-action>
-            <v-icon v-html="$auth.$state.loggedIn ? 'lock' : 'lock_open'"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="$auth.$state.loggedIn ? 'Log Out' : 'Log In'"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
+      </v-list-tile>
+    </v-list>
+    <v-divider></v-divider>
+    <v-list>
+      <v-list-tile @click="loginout">
+        <v-list-tile-action>
+          <v-icon v-html="$auth.$state.loggedIn ? 'lock' : 'lock_open'"></v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title v-text="$auth.$state.loggedIn ? 'Log Out' : 'Log In'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-navigation-drawer>
     <v-toolbar app fixed :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -42,9 +42,9 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-text v-show = "$auth.$state.loggedIn" v-text="$auth.$state.loggedIn ? $auth.user.name+'님, 안녕하세요?' : '' "></v-text>
+      <h3 v-show = "$auth.$state.loggedIn" v-text="$auth.$state.loggedIn ? $auth.user.name+'님, 안녕하세요?' : '' "></h3>
       <v-toolbar-items>
-        <!-- <v-btn flat v-show = "$auth.$state.loggedIn" @click="toEditPage">Edit</v-btn> -->
+        <v-btn flat v-show = "$auth.$state.loggedIn" @click="toEdit($auth)">Settings</v-btn>
         <v-btn flat v-text="$auth.$state.loggedIn ? 'Sign out' : 'Sign in'" @click="loginout"></v-btn>
         <v-btn flat v-show = "!$auth.$state.loggedIn" @click="showRegisterDialog">Register</v-btn>
       </v-toolbar-items>
@@ -239,7 +239,8 @@
           })
         }
       },
-      toEditPage(){
+      toEdit(auth){
+        this.$router.push('/' + auth.user.role + 's/' + auth.user.name +'/about')
       }
     }
   }
