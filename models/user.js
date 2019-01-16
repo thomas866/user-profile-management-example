@@ -2,47 +2,19 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = new mongoose.Schema({
-  id: {
-        type: String,
-        unique: true,
-        index : true,
-        required: true
-  },
-  password: {
-        type: String,
-        required: true,
-        trim: true
-  },
-  role: {
-        type: String,
-        required: true
-  },
-  name: {
-        type: String,
-        index: true,
-        required: true
-  },
-  email: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        required: true,
-  },
-  belongTo: {
-        type: String,
-  },
-  parentID: {
-        type: String
-  },
-  childrenID: {
-        type: Array
-  },
-  address: {
-        type: String
-  },
-  phone: {
-        type: String
-  }
+  id: { type: String, unique: true, index: true, required: true }, // login id
+  password: { type: String, required: true, trim: true },
+  name: { type: String, index: true, required: true }, // realname
+  role: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  belongTo: { type: String },
+  parent: { type: String },
+  children: [{
+      id: { type: String, required: true },
+      name: { type: String, required: true },
+  }],
+  address: { type: String },
+  phone: { type: String },
 });
 
 userSchema.pre('save', function (next) {

@@ -1,27 +1,18 @@
 var mongoose = require('mongoose');
 
 var lessonSchema = new mongoose.Schema({
-  lessonName: {
-    type: String,
-    required: true
-  },
+  lessonName: { type: String, required: true },
   author: {
-    type: String,
-    required: true
+      id: { type: String, required: true },
+      name: { type: String, required: true },
   },
-  activities: [ {_id: ObjectId, activityName: String, sourceCode: String} ],
-  world: {
-    type: String,
-    required: true
-  },
-  script: {
-    type: String,
-    required: true
-  },
-  note: {
-    type: String,
-    required: true
-  }
+  activities: [{
+    activityName: { type: String, required: true },
+    sourceCode: { type: String },
+  }],
+  script: { type: String },
+  world: { type: String },
+  note: { type: String },
 });
 
 module.exports = mongoose.model('lesson', lessonSchema);

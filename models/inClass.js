@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
 
 var inClassSchema = new mongoose.Schema({
-  courseName: String,
-  courseID: String,
-  instName: String,
-  ipAddress: {
-    type: String,
-    required: true
-  },
-  students: [ { _id: ObjectId, username: String } ],
+  courseName: { type: String, required: true },
+  instructor: {
+    id: { type: String },
+    username: { type: String, required: true }
+  }
+  ipAddress: { type: String, required: true },
+  students: [{
+    id: { type: String },
+    username: { type: String, required: true }
+  }],
 });
 
 module.exports = mongoose.model('inClass', inClassSchema);

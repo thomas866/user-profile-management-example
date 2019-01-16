@@ -23,17 +23,6 @@
           </v-list-tile-content>
       </v-list-tile>
     </v-list>
-    <v-divider></v-divider>
-    <v-list>
-      <v-list-tile @click="loginout">
-        <v-list-tile-action>
-          <v-icon v-html="$auth.$state.loggedIn ? 'lock' : 'lock_open'"></v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title v-text="$auth.$state.loggedIn ? 'Log Out' : 'Log In'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list>
   </v-navigation-drawer>
     <v-toolbar app fixed :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
@@ -113,13 +102,15 @@
                       <v-text-field v-model="password" :append-icon="show_password ? 'visibility_off' : 'visibility'"
                         :rules="[rules.more_than_8]" :type="show_password ? 'text' : 'password'"
                         label="Password*" hint="at least 8 characters" counter
-                        @click:append="show_password = !show_password"/>
+                        @click:append="show_password = !show_password">
+                      </v-text-field>
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field v-model="password2" :append-icon="show_password ? 'visibility_off' : 'visibility'"
                         :rules="[rules.same_password]" :type="show_password ? 'text' : 'password'"
                         label="Password confirmation*" hint="need to be matched" counter
-                        @click:append="show_password = !show_password"/>
+                        @click:append="show_password = !show_password">
+                      </v-text-field>
                     </v-flex>
                     <v-flex xs12>
                       <v-select
@@ -161,7 +152,8 @@
         valid: true,
         loginID: '',
         loginPassword: '',
-        username: '',
+        id: '',
+        name: '',
         password: '',
         password2: '',
         email: '',
@@ -201,17 +193,28 @@
           await this.$axios.post('api/auth/register', {
             id: this.id,
             password: this.password,
-            username: this.name,
+            name: this.name,
             role: this.role,
             email: this.email
           })
           .then( res => {
             this.registerDialog = false;
             this.loginDialog = true;
-            this.$refs.registerForm.reset()
+            this.id = ''
+            this.name = ''
+            this.password = ''
+            this.password2 = ''
+            this.email = ''
+            this.role = ''
           })
           .catch(err => {
             this.$refs.registerForm.reset()
+            this.id = ''
+            this.name = ''
+            this.password = ''
+            this.password2 = ''
+            this.email = ''
+            this.role = ''
             console.log(err)
           })
         }
@@ -223,12 +226,15 @@
           })
           .then( res => {
             this.loginDialog = false;
-            this.$refs.loginForm.reset()
+            this.loginID = ''
+            this.loginPassword = ''
             this.$router.push({ name: 'me' })
           })
           .catch(e => {
             console.log(e)
             this.$refs.loginForm.reset()
+            this.loginID = ''
+            this.loginPassword = ''
           })
         }
       },
