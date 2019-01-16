@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
   name: { type: String, index: true, required: true }, // realname
   role: { type: String, required: true },
   email: { type: String, unique: true, required: true },
-  belongTo: { type: String },
+  institute: { type: String },
   parent: { type: String },
   children: [{
       id: { type: String, required: true },

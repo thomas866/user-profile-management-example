@@ -6,7 +6,7 @@ var courseSchema = new mongoose.Schema({
       id: { type: String, required: true },
       name: { type: String, required: true },
   },
-  belongTo: { type: String, required: true },
+  institute: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   description: { type: String, required: true },
