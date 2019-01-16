@@ -1,1 +1,1 @@
-module.exports = 'mongodb://localhost/bosornd'
+module.exports = 'mongodb://localhost/coala-test'

@@ -134,7 +134,7 @@
       </v-container>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; {{ new Date().getFullYear() + 'BoSo RnD Co., Ltd. All rights reserved.' }}</span>
+      <span>&copy; {{ new Date().getFullYear() + ' Coala Software Co., Ltd. All rights reserved.' }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -148,7 +148,7 @@
         drawer: false,
         clipped: true,
         miniVariant: false,
-        title: 'Make SW Visible & Imaginable',
+        title: 'Coala Software',
         valid: true,
         loginID: '',
         loginPassword: '',

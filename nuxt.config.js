@@ -3,11 +3,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'BoSo RnD - make SW visible and imaginable',
+    title: 'Coala Software',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'http://www.bosornd.com' }
+      { hid: 'description', name: 'description', content: 'https://www.coalasw.com/' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
