@@ -13,6 +13,7 @@
           :to="item.to"
           :key="i"
           v-for="(item, i) in items"
+          v-show="item.visible"
           exact
         >
           <v-list-tile-action>
@@ -169,9 +170,9 @@
     computed: {
       items: function(){
         return [
-          { icon: 'home', title: 'Home', to: '/main' },
-          { icon: 'apps', title: 'Main Page', to: '/' },
-          { icon: 'face', title: 'My Page', to: '/me' },
+          { icon: 'home', title: 'Home', to: '/main' , visible: true },
+          { icon: 'apps', title: 'Main' , to: '/' , visible: this.$auth.loggedIn },
+          { icon: 'face', title: 'My Page', to: '/me' , visible: this.$auth.loggedIn },
         ];
       }
     },
@@ -198,14 +199,14 @@
             email: this.email
           })
           .then( res => {
-            this.registerDialog = false;
-            this.loginDialog = true;
             this.id = ''
             this.name = ''
             this.password = ''
             this.password2 = ''
             this.email = ''
             this.role = ''
+            this.registerDialog = false;
+            this.loginDialog = true;
           })
           .catch(err => {
             this.$refs.registerForm.reset()
