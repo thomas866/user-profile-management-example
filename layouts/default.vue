@@ -32,11 +32,12 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <h3 v-show = "$auth.$state.loggedIn" v-text="$auth.$state.loggedIn ? $auth.user.name+'님, 안녕하세요?' : '' "></h3>
+      <h3 v-show = "$auth.loggedIn" v-text="$auth.loggedIn ? $auth.user.name+'님, 안녕하세요?' : '' "></h3>
       <v-toolbar-items>
-        <v-btn flat v-show = "$auth.$state.loggedIn" @click="toEdit($auth)">Settings</v-btn>
-        <v-btn flat v-text="$auth.$state.loggedIn ? 'Sign out' : 'Sign in'" @click="loginout"></v-btn>
-        <v-btn flat v-show = "!$auth.$state.loggedIn" @click="showRegisterDialog">Register</v-btn>
+        <v-btn flat v-show = "$auth.loggedIn" @click="toEdit($auth)">Settings</v-btn>
+        <v-btn flat v-show = "!$auth.loggedIn" @click="signIn">Sign In</v-btn>
+        <v-btn flat v-show = "$auth.loggedIn" @click="signOut">Sign Out</v-btn>
+        <v-btn flat v-show = "!$auth.loggedIn" @click="showRegisterDialog">Register</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -177,11 +178,13 @@
       }
     },
     methods: {
-      loginout(){
-        if (this.$auth.$state.loggedIn){
+      signIn(){
+        this.loginDialog = true;
+      },
+      signOut(){
+        if (this.$auth.loggedIn){
           this.$auth.logout();
         }
-        this.loginDialog = true;
       },
       showRegisterDialog(){
         if(this.loginDialog){
